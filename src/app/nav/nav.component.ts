@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -10,7 +11,7 @@ import { AuthService } from '../services/auth.service';
 export class NavComponent {
   loggedIn = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -28,6 +29,7 @@ export class NavComponent {
       next: (res) => {
         console.log(res);
         this.loggedIn = true;
+        this.router.navigateByUrl('/members');
       },
       error: (err) => {
         console.log(err);
