@@ -48,7 +48,11 @@ export class MemberEditComponent {
   }
 
   updateMember() {
-    console.log(this.member);
-    this.editForm?.reset(this.member);
+    this.apiService.updateMember(this.editForm?.value).subscribe({
+      next: (_) => {
+        this.editForm?.reset(this.member);
+      },
+      error: (err) => console.log(err),
+    });
   }
 }
