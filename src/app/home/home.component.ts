@@ -10,11 +10,9 @@ export class HomeComponent {
   registerMode = false;
   users: any;
 
-  constructor(private apiService: ApiService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.getUsers();
-  }
+  ngOnInit(): void {}
 
   registerToggle() {
     this.registerMode = !this.registerMode;
@@ -22,16 +20,6 @@ export class HomeComponent {
 
   cancelRegisterMode(event: boolean) {
     this.registerMode = event;
-  }
-
-  getUsers(): void {
-    this.apiService.getUsers().subscribe({
-      next: (response) => {
-        this.users = response;
-        console.log(response);
-      },
-      error: (error) => console.error(error),
-    });
   }
 
   onCancelRegister(event: boolean): void {

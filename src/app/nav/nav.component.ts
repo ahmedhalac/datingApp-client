@@ -9,37 +9,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav.component.css'],
 })
 export class NavComponent {
-  loggedIn = false;
+  constructor(public authService: AuthService, private router: Router) {}
 
-  constructor(private authService: AuthService, private router: Router) {}
-
-  ngOnInit(): void {
-    this.getCurrentUser();
-  }
-
-  getCurrentUser() {
-    this.authService.currentUser$.subscribe({
-      next: (user) => (this.loggedIn = !!user),
-      error: (err) => console.log(err),
-    });
-  }
+  ngOnInit(): void {}
 
   login(form: NgForm): void {
     this.authService.login(form.value).subscribe({
       next: (res) => {
         console.log(res);
-        this.loggedIn = true;
         this.router.navigateByUrl('/members');
       },
       error: (err) => {
         console.log(err);
-        this.loggedIn = false;
       },
     });
   }
 
   logout(): void {
     this.authService.logout();
-    this.loggedIn = false;
   }
 }
