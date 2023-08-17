@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Member } from 'src/app/models/member';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-member-card',
@@ -9,7 +10,13 @@ import { Member } from 'src/app/models/member';
 export class MemberCardComponent {
   @Input() member: Member | undefined;
 
-  constructor() {}
+  constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {}
+
+  addLike(member: Member) {
+    this.apiService.addLike(member.userName).subscribe({
+      next: () => console.log('You have likes'),
+    });
+  }
 }
